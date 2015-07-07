@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>slide left slideshow</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style media="screen">
+    .slideshowbox{
+      width: 200px;
+      overflow: hidden;
+    }
+    .container{
+      width: 300%;
+    }
+      .box{
+        width: 100px;
+        height: 100px;
+        float: left;
+        margin: 0px 10px;
+        background-color: red;
+        position: relative;
+      }
+      .green{
+        background-color: green;
+      }
+      .blue{
+        background-color: blue;
+      }
+      .gray{
+        background-color: gray;
+      }
+    </style>
+  </head>
+  <body>
+<div class="slideshowbox">
+    <div class="container">
+      <div class="box">
+      </div>
+      <div class="box green">
+      </div>
+      <div class="box blue">
+      </div>
+      <div class="box gray">
+      </div>
+    </div>
+</div>
+<a id="prev"><</a>
+<a id="next">></a>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+      var slides = $('.container').find('.box');
+      var count = 0;
+      $(".box").first().addClass("cslide-active");
+
+      $('#next').on('click',function(){
+          $(slides[count]).animate({left: "-100px"}, 100).fadeOut(100);
+          count = (count + 1) % slides.length;
+          $(slides[count]).fadeIn(100).css({left: "5px"});
+      });
+
+
+  $('#prev').on('click',function(){
+     count = (count - 1);
+     if(count < 0){
+      count = (count + 1);
+     }
+      $(slides[count]).animate({left: "+5px"}, 100).fadeIn(100);
+  });
+
+    });
+    </script>
+  </body>
+</html>

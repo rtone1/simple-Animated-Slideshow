@@ -57,6 +57,9 @@
       <div class="box gray">
         <img src="http://i.dailymail.co.uk/i/pix/2015/01/06/2473100D00000578-2898639-Photographer_Andrey_Gudkov_snapped_the_images_on_the_plains_of_t-a-20_1420546215677.jpg" alt="" />
       </div>
+      <div class="box blue">
+        <img src="http://i.dailymail.co.uk/i/pix/2013/11/03/article-2486855-192ACC5200000578-958_964x682.jpg" alt="" />
+      </div>
     </div>
 </div>
 <a id="prev"><</a>
@@ -70,22 +73,18 @@
     $('.box').first().addClass("active");
     //$('.box').next().addClass("active");
       $('#next').on('click',function(){
-          $(slides[count]).animate({left: "-100px"}, 100).fadeOut(100).removeClass('active');
+          $(slides[count]).animate({left: "-100px"},100).removeClass('active');
           count = (count + 1) % slides.length;
-          $(slides[count]).fadeIn(100).css({left: "10px"}).addClass("active");
+          $(slides[count]).css({left: "10px"}).addClass("active");
       });
 
       $('#prev').on('click',function(){
         $('.box').next().removeClass("active");
          count = (count - 1);
          if(count < 0){
-          count = (count + 1);
-         }
-          $(slides[count]).animate({left: "10px"}, 100).fadeIn(100).addClass("active");
-      });
-
-
-      $('.box').click(function(){
+          count = slides.length - 1;
+        }
+          $(slides[count]).animate({left: "10px"}, 100).addClass("active");
 
       });
 

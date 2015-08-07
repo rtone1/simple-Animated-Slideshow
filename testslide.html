@@ -4,89 +4,77 @@
     <title>slide left slideshow</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <style media="screen">
-    .slideshowbox{
-      width: 200px;
-      overflow: hidden;
-    }
-    .container{
-      width: 300%;
-    }
+      .slideshowbox{
+        width: 500px;
+        overflow: hidden;
+      }
+      .container{
+        width: 400%;
+      }
       .box{
-        width: 200px;
-        height: 200px;
-        float: left;
-        margin: 0px 10px;
-        background-color: red;
         position: absolute;
-        visibility: hidden;
+        display: none;
       }
       img{
-        width: 200px;
-        height: 200px;
-      }
-      .active{
-        visibility: visible;
-      }
-      .green{
-        background-color: green;
-      }
-      .blue{
-        background-color: blue;
-      }
-      .gray{
-        background-color: gray;
+        width: 400px;
+        height: 400px;
+
       }
       a{
-        top: 200px;
-        position: relative;
+        font-size: 32px;
       }
     </style>
   </head>
   <body>
 <div class="slideshowbox">
+  <a id="prev"><<</a>
+  <a id="next">>></a>
     <div class="container">
       <div class="box">
-        <img src="http://www.freestockphotos.name/wallpaper-original/wallpapers/download-images-of-gentle-dogs-6866.jpg" alt="" />
+        <img src="http://2.bp.blogspot.com/-CMIQjovvgcQ/VOy4zOpkW3I/AAAAAAAAAH4/8cE_5moqRFQ/s1600/happy%2Bholi%2Bphotos.jpg" alt="" />
       </div>
-      <div class="box green">
-        <img src="http://www.hdwallpapersimages.com/wp-content/uploads/images/Child-Girl-with-Sunflowers-Images.jpg" alt="" />
+      <div class="box">
+        <img src="http://i.telegraph.co.uk/multimedia/archive/03025/saatchi-plug-hole_3025834k.jpg" alt="" />
       </div>
-      <div class="box blue">
+      <div class="box">
         <img src="http://i.dailymail.co.uk/i/pix/2013/11/03/article-2486855-192ACC5200000578-958_964x682.jpg" alt="" />
       </div>
-      <div class="box gray">
+      <div class="box">
         <img src="http://i.dailymail.co.uk/i/pix/2015/01/06/2473100D00000578-2898639-Photographer_Andrey_Gudkov_snapped_the_images_on_the_plains_of_t-a-20_1420546215677.jpg" alt="" />
-      </div>
-      <div class="box blue">
-        <img src="http://i.dailymail.co.uk/i/pix/2013/11/03/article-2486855-192ACC5200000578-958_964x682.jpg" alt="" />
       </div>
     </div>
 </div>
-<a id="prev"><</a>
-<a id="next">></a>
+<div class="dots">
+</div>
 
     <script type="text/javascript">
+
     $(document).ready(function(){
       var slides = $('.container').find('.box');
       var count = 0;
 
-    $('.box').first().addClass("active");
-    //$('.box').next().addClass("active");
-      $('#next').on('click',function(){
-          $(slides[count]).animate({left: "-100px"},100).removeClass('active');
-          count = (count + 1) % slides.length;
-          $(slides[count]).css({left: "10px"}).addClass("active");
-      });
+      function nextSlide(){
+        $(slides[count]).show();
+        $('#next').on('click',function(){
+            $(slides[count]).fadeOut();
+            count = (count + 1) % slides.length;
+            $(slides[count]).fadeIn();
+        });
+      };
+      nextSlide();
 
-      $('#prev').on('click',function(){
-        $('.box').next().removeClass("active");
-         count = (count - 1);
-         if(count < 0){
-          count = slides.length - 1;
-        }
-          $(slides[count]).animate({left: "10px"}, 100).addClass("active");
+      function prevSlide(){
+        $('#prev').on('click',function(){
+            $(slides[count]).fadeOut();
+            count = (count - 1);
+            if(count < 0){
+             count = slides.length - 1;
+            }
+            $(slides[count]).fadeIn();
+        });
+      };
+      prevSlide();
 
-      });
 
     });
     </script>

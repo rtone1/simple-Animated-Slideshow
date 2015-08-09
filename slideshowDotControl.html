@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>slide left slideshow</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style media="screen">
+      .slideshowbox{
+        width: 600px;
+        height: 430px;
+        overflow: hidden;
+      }
+      .box{
+        position: absolute;
+        display: none;
+      }
+      img{
+        width: 600px;
+        height: 400px;
+        box-shadow: 1px 1px 2px 0px gray;
+      }
+      #next{
+        width: 32px;
+        height: 39px;
+        border-right: solid 2px gray;
+        border-top: solid 2px gray;
+        transform: rotate(45deg);
+        display: inline-block;
+        float: right;
+        margin: 190px 16px 0px 0px;
+      }
+      #prev{
+        width: 38px;
+        height: 32px;
+        border-right: solid 2px gray;
+        border-top: solid 2px gray;
+        transform: rotate(-130deg);
+        display: inline-block;
+        margin: 190px 0px 0px 14px;
+      }
+      #next:hover,
+      #prev:hover{
+        cursor: pointer;
+        border-color: white;
+      }
+      .loading{
+        width: 100px;
+        height: 100px;
+        margin: 0px 200px;
+      }
+      ul{
+        padding: 0px;
+        margin: 0px;
+        text-align: center;
+        position: relative;
+        bottom: -180px;
+      }
+      li{
+        display: inline-block;
+      }
+      li > div{
+        width: 15px;
+        height: 15px;
+        background-color: lightgray;
+        border-radius: 7px;
+        margin-left: 5px;
+        box-shadow: inset 1px 1px 2px 0px gray;
+      }
+      li > div:hover{
+        cursor: pointer;
+        box-shadow: inset 2px 2px 4px 0px gray;
+      }
+    </style>
+  </head>
+  <body>
+<div class="slideshowbox">
+      <div class="box">
+        <img class="slideImg" src="http://europe.chinadaily.com.cn/world/attachement/jpg/site1/20140414/001aa018f83f14b59b4853.jpg" alt="" />
+      </div>
+      <div class="box">
+        <img src="http://l.upstc.com/activities/2/16699/original_1378419120.jpg" alt="" />
+      </div>
+      <div class="box">
+        <img src="http://media2.fdncms.com/styleweekly/imager/the-color-run-at-richmond-international-ra/u/original/1755760/night37_color_run.jpg" alt="" />
+      </div>
+      <div class="box">
+        <img src="https://dtswildwall.files.wordpress.com/2012/02/color-run-dude.png" alt="" />
+      </div>
+      <div class="box">
+        <img src="http://www.justkeeprunning.nl/wp-content/uploads/1079004_410993952345376_1603300890_o.jpg" alt="" />
+      </div>
+      <div class="navArrow" id="prev"></div>
+      <div class="navArrow" id="next"></div>
+      <img class="loading" src="http://www.arabianbusiness.com/skins/ab.main/gfx/loading_spinner.gif">
+      <ul class="dotlist"></ul>
+</div>
+
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+      // find all the slides
+      var slides = $('.slideshowbox').find('.box');
+      // start count to move through index
+      var count = 0;
+
+      function nextSlide(){
+        $(slides[count]).show();
+        $('#next').on('click',function(){
+            $(slides[count]).fadeOut();
+            count = (count + 1) % slides.length;
+            $(slides[count]).fadeIn();
+        });
+      };
+      nextSlide();
+
+      function prevSlide(){
+        $('#prev').on('click',function(){
+            $(slides[count]).fadeOut();
+            count = (count - 1);
+            if(count < 0){
+             count = slides.length - 1;
+            }
+            $(slides[count]).fadeIn();
+        });
+      };
+      prevSlide();
+
+//dot navigation function===========================below
+      function dotLinks(){
+        var list = ('<li><div></div></li>');
+            for (var i = 0; i < slides.length; i++){
+               $('.dotlist').append(list);
+            };
+        $( "li" ).click(function() {
+            var index = $( "li" ).index( this );
+            $(slides[count]).fadeOut();
+            count = index;
+            $(slides[count]).fadeIn();
+        });
+      };
+      dotLinks();
+
+//loading gif function===============================below
+
+     $('.slideImg').load( function(){
+        $('.loading').hide();
+      });
+
+    });// end of document ready function
+    </script>
+  </body>
+</html>

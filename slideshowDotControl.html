@@ -69,6 +69,9 @@
         cursor: pointer;
         box-shadow: inset 2px 2px 4px 0px gray;
       }
+      .dotActive{
+        background-color: blue;
+      }
     </style>
   </head>
   <body>
@@ -102,28 +105,6 @@
       // start count to move through index
       var count = 0;
 
-      function nextSlide(){
-        $(slides[count]).show();
-        $('#next').on('click',function(){
-            $(slides[count]).fadeOut();
-            count = (count + 1) % slides.length;
-            $(slides[count]).fadeIn();
-        });
-      };
-      nextSlide();
-
-      function prevSlide(){
-        $('#prev').on('click',function(){
-            $(slides[count]).fadeOut();
-            count = (count - 1);
-            if(count < 0){
-             count = slides.length - 1;
-            }
-            $(slides[count]).fadeIn();
-        });
-      };
-      prevSlide();
-
 //dot navigation function===========================below
       function dotLinks(){
         var list = ('<li><div></div></li>');
@@ -133,11 +114,43 @@
         $( "li" ).click(function() {
             var index = $( "li" ).index( this );
             $(slides[count]).fadeOut();
+            $(dot[count]).removeClass('dotActive');
             count = index;
             $(slides[count]).fadeIn();
+            $(dot[count]).addClass('dotActive');
         });
       };
       dotLinks();
+      // grab the list child elments (in this case divs)
+      var dot = $('li').children();
+      // add dotActive to the first div in the list
+      $(dot).first().addClass('dotActive');
+
+      function nextSlide(){
+        $(slides[count]).show();
+        $('#next').on('click',function(){
+            $(slides[count]).fadeOut();
+            $(dot[count]).removeClass('dotActive');
+            count = (count + 1) % slides.length;
+            $(slides[count]).fadeIn();
+            $(dot[count]).addClass('dotActive');
+        });
+      };
+      nextSlide();
+
+      function prevSlide(){
+        $('#prev').on('click',function(){
+            $(slides[count]).fadeOut();
+            $(dot[count]).removeClass('dotActive');
+            count = (count - 1);
+            if(count < 0){
+             count = slides.length - 1;
+            }
+            $(slides[count]).fadeIn();
+            $(dot[count]).addClass('dotActive');
+        });
+      };
+      prevSlide();
 
 //loading gif function===============================below
 

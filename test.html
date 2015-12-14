@@ -33,6 +33,18 @@
         width: 100%;
         height: 3000px;
       }
+      @media only screen and ( max-width: 900px ){
+        .box1{
+          background-color: orange;
+          height: 200px;
+        }
+        /*.parabox{
+          background-color: red;
+          height: 100px;
+          width: 100px;
+          top: 200px;
+        }*/
+      }
 
     </style>
   </head>
@@ -51,25 +63,54 @@
 
     <script type="text/javascript">
 
-
+  var responsive = function(){
+    $(window).resize(function(){
+      if($(window).width() < 900){
+        $('.parabox').css({top: 200});
+      }else{
+        $('.parabox').css({top: 300});
+      }
+    })
+  }
+responsive();
   var followTo = function (target, pos ) {
+
         $(window).scroll(function(){
+
           var scrolled = $(window).scrollTop();
           var obj = $('.parabox');
-          console.log(scrolled);
+          var box = $('.box1').height();
+          //console.log(scrolled);
+
             if (scrolled > pos) {
                 target.css({ position: 'absolute', top: pos });
-                $(obj).css({position: 'absolute', top: pos + 200 });
+                $(obj).css({position: 'absolute', top: pos + box - 100 }); // parallax
             } else {
                 target.css({ position: 'fixed', top: 0 });
                 if(scrolled > 50){
-                  $(obj).css({position: 'fixed', top: 200 });
+                  $(obj).css({position: 'fixed', top: box - 100 }); // parallax
                 } else if (scrolled < 100){
-                  $(obj).css({position: 'absolute', top: -scrolled + 300 });
-                } 
-            }
-        });
+                  $(obj).css({position: 'absolute', top: -scrolled + 300 }); // parallax
+                }
+            } // end of delay scroll
+
+            if ($( window ).width() < 900){
+              if (scrolled > pos) {
+                  $(obj).css({position: 'absolute', top: pos + box - 100 }); // parallax
+              } else {
+                  if(scrolled > 50){
+                    $(obj).css({position: 'fixed', top: box - 100 }); // parallax
+                  } else if (scrolled < 100){
+                    $(obj).css({position: 'absolute', top: -scrolled + 200 }); // parallax
+                  }
+              }
+            }// end of window width
+
+        });// end of scroll
+
+
     };
+
 
     followTo($('.box1'), 400);
     </script>

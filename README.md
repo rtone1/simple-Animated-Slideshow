@@ -2,5 +2,5 @@
 
 Easy to use Jquery animated slideshow with options to use dot navigation, arrow navigation or both.
 
-# 1 Arrow Navigational slideshow
+# 1 Arrow Navigational Slideshow
 ![ScreenShot](/arrowNav.png)

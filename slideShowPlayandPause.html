@@ -52,11 +52,38 @@
           border-top: solid 3px #fff;
           cursor: pointer;
         }
+        .numImg{
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          z-index: 2000;
+          color: rgba(255,255,255,.5);
+          font-family: helvetica ,serif;
+          font-size: 34px;
+          font-weight: 100;
+        }
+        #playandpause{
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          z-index: 2000;
+          color: rgba(255,255,255,.5);
+          font-family: helvetica ,serif;
+          font-size: 34px;
+          font-weight: 100;
+        }
+        #playandpause:hover{
+          cursor: pointer;
+          color: #fff;
+        }
       </style>
   </head>
   <body>
+
     <div id="prev"></div>
     <div id="next"></div>
+    <div id="playandpause">></div>
+    <div class="numImg"></div>
     <div class="imgContainer">
         <img src="images/twilightBridge.jpg" alt="test slideshow image" />
         <img src="images/waterBridge.jpg" alt="test slideshow image" />
@@ -74,6 +101,8 @@
         $(document).ready(function(){
           var slides = $('.imgContainer').find('img');
           var count = 0;
+          var play;
+          var counter = 0;
 
           function arrowCenter(){
             var imgH = $(slides[count]).height();
@@ -96,6 +125,7 @@
                 $(slides[count]).fadeIn();
                 arrowCenter();
                 imageAmount();
+                pauseSlides();
             });
           };
           nextSlide();
@@ -110,6 +140,7 @@
                 $(slides[count]).fadeIn();
                 arrowCenter();
                 imageAmount();
+                pauseSlides();
             });
           };
           prevSlide();
@@ -121,6 +152,29 @@
             arrowCenter();
             imageAmount();
           };
+
+          function playSlides(){
+            play = setInterval(countUP, 2000);
+            $('#playandpause').text('II');
+            counter = 1;
+          };
+
+          function pauseSlides(){
+            clearInterval(play);
+            $('#playandpause').text('>');
+            counter = 0;
+          };
+
+          function autoPlay(){
+            $('#playandpause').on('click', function(){
+              if ( counter === 0 ){
+                playSlides();
+              } else {
+                pauseSlides();
+              }
+            });
+          };
+          autoPlay();
 
         });
     </script>

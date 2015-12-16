@@ -1,4 +1,4 @@
-# simple-Animated-Slideshow
+# Simple-Animated-Slideshow
 
 Easy to use JQuery animated slideshow with  arrow navigation, play and pause button, dot navigation or all.
 

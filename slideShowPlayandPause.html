@@ -154,10 +154,11 @@
           };
 
           function playSlides(){
-            play = setInterval(countUP, 2000);
+            play = setInterval(countUP, 5000);
             $('#playandpause').text('II');
             counter = 1;
           };
+          playSlides();
 
           function pauseSlides(){
             clearInterval(play);
